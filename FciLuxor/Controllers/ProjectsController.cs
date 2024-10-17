@@ -1,11 +1,4 @@
-using Application.Features.Projects.Commands.CreateProject;
-using Application.Features.Projects.Commands.DeleteProject;
-using Application.Features.Projects.Commands.UpdateProject;
-using Application.Features.Projects.Queries.GetAllProjects;
-using Application.Features.Projects.Queries.GetProjectById;
-using Infrastructure.DbContexts;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
+
 
 namespace FciLuxor.Controllers
 {
