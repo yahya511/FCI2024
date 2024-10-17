@@ -3,13 +3,11 @@ namespace Application.Features.Projects.Commands.CreateProject
 {
     public class CreateProjectHandler : IRequestHandler<CreateProjectRequest, Unit>
     {
-        private readonly IGenericRepository<Project> _projectRepository;
-        private readonly ProjectsDbContext _context; // إضافة DbContext
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CreateProjectHandler(IGenericRepository<Project> projectRepository, ProjectsDbContext context)
+        public CreateProjectHandler(IUnitOfWork unitOfWork)
         {
-            _projectRepository = projectRepository;
-            _context = context; // تهيئة DbContext
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Unit> Handle(CreateProjectRequest request, CancellationToken cancellationToken)
@@ -22,10 +20,11 @@ namespace Application.Features.Projects.Commands.CreateProject
                 EndDate = request.EndDate
             };
 
-            await _projectRepository.AddAsync(newProject);
-            await _context.SaveChangesAsync(); // استخدم DbContext لحفظ التغييرات
+            await _unitOfWork.Projects.AddAsync(newProject);
+            await _unitOfWork.CommitAsync(); // استخدم DbContext لحفظ التغييرات
 
             return Unit.Value; // إرجاع وحدة القيمة لتشير إلى النجاح
         }
+
     }
 }

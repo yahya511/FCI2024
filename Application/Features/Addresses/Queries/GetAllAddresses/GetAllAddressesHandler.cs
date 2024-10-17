@@ -3,18 +3,18 @@ namespace Application.Features.Addresses.Queries.GetAllAddresses
 {
     public class GetAllAddressesHandeler : IRequestHandler<GetAllAddressesRequest, IEnumerable<Address>>
     {   
-        private readonly IGenericRepository<Address> _addressRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public GetAllAddressesHandeler(IGenericRepository<Address> addressRepository)
+        public GetAllAddressesHandeler(IUnitOfWork unitOfWork)
         {
-            _addressRepository=addressRepository;
+            _unitOfWork = unitOfWork;
         }
 
 
 
         public async Task<IEnumerable<Address>> Handle(GetAllAddressesRequest request, CancellationToken cancellationToken)
         {
-            return await _addressRepository.GetAllAsync();
+            return await _unitOfWork.Addresses.GetAllAsync();
         }
     }
 }

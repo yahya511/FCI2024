@@ -3,16 +3,11 @@ namespace Application.Features.Addresses.Commands.CreateAddress
 {
     public class CreateAddressHandler : IRequestHandler<CreateAddressRequest, Unit>
     {
-        private readonly IGenericRepository<Address> _addressRepository;
-        private readonly IGenericRepository<Town> _townRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        private readonly EmployeesDbContext _context; // إضافة DbContext
-
-        public CreateAddressHandler(IGenericRepository<Address> addressRepository,IGenericRepository<Town> townRepository, EmployeesDbContext context)
+        public CreateAddressHandler(IUnitOfWork unitOfWork)
         {
-            _addressRepository = addressRepository;
-            _townRepository=townRepository;
-            _context = context; // تهيئة DbContext
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Unit> Handle(CreateAddressRequest request, CancellationToken cancellationToken)
@@ -20,7 +15,7 @@ namespace Application.Features.Addresses.Commands.CreateAddress
              // التحقق من أن TownID يشير إلى مدينة موجودة
             if (request.TownID.HasValue)
             {
-                var townExists = await _townRepository.GetByIdAsync(request.TownID.Value);
+                var townExists = await _unitOfWork.Towns.GetByIdAsync(request.TownID.Value);
                 if (townExists == null)
                 {
                     throw new KeyNotFoundException($"Town with ID {request.TownID.Value} not found.");
@@ -32,8 +27,8 @@ namespace Application.Features.Addresses.Commands.CreateAddress
                 TownID = request.TownID
             };
 
-            await _addressRepository.AddAsync(newAddress);
-            await _context.SaveChangesAsync(); // استخدم DbContext لحفظ التغييرات
+            await _unitOfWork.Addresses.AddAsync(newAddress);
+            await _unitOfWork.CommitAsync(); //   لحفظ التغييرات
 
             return Unit.Value; // إرجاع وحدة القيمة لتشير إلى النجاح
         }

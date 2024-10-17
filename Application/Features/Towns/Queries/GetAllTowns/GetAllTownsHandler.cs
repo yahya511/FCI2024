@@ -1,28 +1,21 @@
-// Application/Features/Towns/Queries/GetAllTowns/GetAllTownsHandler.cs
-using MediatR;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Infrastructure.Repositories;
-using Domain.Models;
-using Application.Features.Towns.Queries.GetAllTowns;
+
 
 namespace Application.Features.Towns.Queries.GetAllTowns
 {
     public class GetAllTownsHandler : IRequestHandler<GetAllTownsRequest, IEnumerable<Town>>
     {
-        private readonly IGenericRepository<Town> _townRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public GetAllTownsHandler(IGenericRepository<Town> townRepository)
+        public GetAllTownsHandler(IUnitOfWork unitOfWork)
         {
-            _townRepository = townRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IEnumerable<Town>> Handle(GetAllTownsRequest request, CancellationToken cancellationToken)
         {
             try
             {
-                return await _townRepository.GetAllAsync();
+                return await _unitOfWork.Towns.GetAllAsync();
             }
             catch (Exception ex)
             {

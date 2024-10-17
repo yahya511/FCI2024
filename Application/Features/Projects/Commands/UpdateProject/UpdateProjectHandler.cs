@@ -3,18 +3,16 @@ namespace Application.Features.Projects.Commands.UpdateProject
 {
     public class UpdateProjectHandler : IRequestHandler<UpdateProjectRequest, Unit>
     {
-        private readonly IGenericRepository<Project> _projectRepository;
-        private readonly ProjectsDbContext _context; // إضافة DbContext
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UpdateProjectHandler(IGenericRepository<Project> projectRepository, ProjectsDbContext context)
+        public UpdateProjectHandler(IUnitOfWork unitOfWork)
         {
-            _projectRepository = projectRepository;
-            _context = context; // تهيئة DbContext
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Unit> Handle(UpdateProjectRequest request, CancellationToken cancellationToken)
         {
-            var project = await _projectRepository.GetByIdAsync(request.ProjectID);
+            var project = await _unitOfWork.Projects.GetByIdAsync(request.ProjectID);
 
             if (project == null)
             {
@@ -27,8 +25,8 @@ namespace Application.Features.Projects.Commands.UpdateProject
             project.StartDate = request.StartDate;
             project.EndDate = request.EndDate;
 
-            await _projectRepository.UpdateAsync(project);
-            await _context.SaveChangesAsync(); // استخدم DbContext لحفظ التغييرات
+            await _unitOfWork.Projects.UpdateAsync(project);
+            await _unitOfWork.CommitAsync(); // استخدم DbContext لحفظ التغييرات
 
             return Unit.Value; // إرجاع وحدة القيمة لتشير إلى النجاح
         }

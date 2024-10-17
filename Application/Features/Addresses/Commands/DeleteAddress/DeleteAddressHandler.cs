@@ -5,22 +5,19 @@ namespace Application.Features.Addresses.Commands.DeleteAddress
     public class DeleteAddressHandler : IRequestHandler<DeleteAddressRequest, Unit>
     {
 
-        private readonly IGenericRepository<Address> _addressRepository;
-        private readonly EmployeesDbContext _context; // إضافة DbContext
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DeleteAddressHandler(IGenericRepository<Address> addressRepository, EmployeesDbContext context)
+        public DeleteAddressHandler(IUnitOfWork unitOfWork)
         {
-            _addressRepository = addressRepository;
-            _context = context; // تهيئة DbContext
+            _unitOfWork = unitOfWork;
         }
-
         public async Task<Unit> Handle(DeleteAddressRequest request, CancellationToken cancellationToken)
         {
-            var Address=await _addressRepository.GetByIdAsync(request.AddressID);
+            var Address=await _unitOfWork.Addresses.GetByIdAsync(request.AddressID);
             if(Address!=null)
             {
-                await _addressRepository.DeleteAsync(Address.AddressID);
-                await _context.SaveChangesAsync();
+                await _unitOfWork.Addresses.DeleteAsync(Address.AddressID);
+                await _unitOfWork.CommitAsync();
 
             }
             return Unit.Value;

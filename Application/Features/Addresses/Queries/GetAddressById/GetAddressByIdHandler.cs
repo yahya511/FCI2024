@@ -4,16 +4,16 @@ namespace Application.Features.Addresses.Queries.GetAddressById
 {
     public class GetAddressByIdHandler : IRequestHandler<GetAddressByIdRequest, Address>
     {
-        private readonly IGenericRepository<Address> _addressRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public GetAddressByIdHandler(IGenericRepository<Address> addressRepository)
+        public GetAddressByIdHandler(IUnitOfWork unitOfWork)
         {
-            _addressRepository=addressRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Address> Handle(GetAddressByIdRequest request, CancellationToken cancellationToken)
         {
-            return await _addressRepository.GetByIdAsync(request.AddressID);
+            return await _unitOfWork.Addresses.GetByIdAsync(request.AddressID);
         }
     }
 }

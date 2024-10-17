@@ -4,16 +4,16 @@ namespace Application.Features.Towns.Queries.GetTownById
 {
     public class GetTownByIdHandler : IRequestHandler<GetTownByIdRequest, Town>
     {
-        private readonly IGenericRepository<Town> _townRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public GetTownByIdHandler(IGenericRepository<Town> townRepository)
+        public GetTownByIdHandler(IUnitOfWork unitOfWork)
         {
-            _townRepository = townRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Town> Handle(GetTownByIdRequest request, CancellationToken cancellationToken)
         {
-            return await _townRepository.GetByIdAsync(request.TownID);
+            return await _unitOfWork.Towns.GetByIdAsync(request.TownID);
         }
     }
 

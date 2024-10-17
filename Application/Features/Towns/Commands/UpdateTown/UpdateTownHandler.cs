@@ -3,18 +3,16 @@ namespace Application.Features.Towns.Commands.UpdateTown
 {
     public class UpdateTownHandler : IRequestHandler<UpdateTownRequest, Unit>
     {
-        private readonly IGenericRepository<Town> _townRepository;
-        private readonly EmployeesDbContext _context; // إضافة DbContext
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UpdateTownHandler(IGenericRepository<Town> townRepository, EmployeesDbContext context)
+        public UpdateTownHandler(IUnitOfWork unitOfWork)
         {
-            _townRepository = townRepository;
-            _context = context; // تهيئة DbContext
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Unit> Handle(UpdateTownRequest request, CancellationToken cancellationToken)
         {
-            var town = await _townRepository.GetByIdAsync(request.TownID);
+            var town = await _unitOfWork.Towns.GetByIdAsync(request.TownID);
 
             if (town == null)
             {
@@ -24,8 +22,8 @@ namespace Application.Features.Towns.Commands.UpdateTown
             // تحديث الخصائص المطلوبة
             town.Name = request.Name; // افترض أن لديك خاصية اسمية
 
-            await _townRepository.UpdateAsync(town);
-            await _context.SaveChangesAsync(); // استخدم DbContext لحفظ التغييرات
+            await _unitOfWork.Towns.UpdateAsync(town);
+            await _unitOfWork.CommitAsync(); // استخدم DbContext لحفظ التغييرات
 
             return Unit.Value; // إرجاع وحدة القيمة لتشير إلى النجاح
         }

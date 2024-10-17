@@ -3,20 +3,16 @@ namespace Application.Features.Addresses.Commands.UpdateAddress
 {
     public class UpdateAddressHandler : IRequestHandler<UpdateAddressRequest, Unit>
     {
-        private readonly IGenericRepository<Address> _addressRepository;
-        private readonly IGenericRepository<Town> _townRepository;
-        private readonly EmployeesDbContext _context; // إضافة DbContext
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UpdateAddressHandler(IGenericRepository<Address> addressRepository,IGenericRepository<Town> townRepository, EmployeesDbContext context)
+        public UpdateAddressHandler(IUnitOfWork unitOfWork)
         {
-            _addressRepository = addressRepository;
-            _townRepository=townRepository;
-            _context = context; // تهيئة DbContext
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Unit> Handle(UpdateAddressRequest request, CancellationToken cancellationToken)
         {
-            var Address = await _addressRepository.GetByIdAsync(request.AddressID);
+            var Address = await _unitOfWork.Addresses.GetByIdAsync(request.AddressID);
 
             if (Address == null)
             {
@@ -26,7 +22,7 @@ namespace Application.Features.Addresses.Commands.UpdateAddress
             // التحقق من أن TownID يشير إلى مدينة موجودة
             if (request.TownID.HasValue)
             {
-                var townExists = await _townRepository.GetByIdAsync(request.TownID.Value);
+                var townExists = await _unitOfWork.Towns.GetByIdAsync(request.TownID.Value);
                 if (townExists == null)
                 {
                     throw new KeyNotFoundException($"Town with ID {request.TownID.Value} not found.");
@@ -38,8 +34,8 @@ namespace Application.Features.Addresses.Commands.UpdateAddress
              Address.AddressText=request.AddressText;
              Address.TownID=request.TownID;
 
-            await _addressRepository.UpdateAsync(Address);
-            await _context.SaveChangesAsync(); // استخدم DbContext لحفظ التغييرات
+            await _unitOfWork.Addresses.UpdateAsync(Address);
+            await _unitOfWork.CommitAsync(); // استخدم DbContext لحفظ التغييرات
 
             return Unit.Value; // إرجاع وحدة القيمة لتشير إلى النجاح
         }

@@ -3,16 +3,16 @@ namespace Application.Features.Projects.Queries.GetAllProjects
 {
     public class GetAllProjectsHandler : IRequestHandler<GetAllProjectsRequest, IEnumerable<Project>>
     {
-        private readonly IGenericRepository<Project> _projectRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public GetAllProjectsHandler(IGenericRepository<Project> projectRepository)
+        public GetAllProjectsHandler(IUnitOfWork unitOfWork)
         {
-            _projectRepository = projectRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IEnumerable<Project>> Handle(GetAllProjectsRequest request, CancellationToken cancellationToken)
         {
-            return await _projectRepository.GetAllAsync();
+            return await _unitOfWork.Projects.GetAllAsync();
         }
     }
 }
