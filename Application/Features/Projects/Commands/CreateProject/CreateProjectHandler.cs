@@ -20,7 +20,7 @@ namespace Application.Features.Projects.Commands.CreateProject
                 EndDate = request.EndDate
             };
 
-            await _unitOfWork.Projects.AddAsync(newProject);
+          //  await _unitOfWork.Projects.AddAsync(newProject);
             await _unitOfWork.CommitAsync(); // استخدم DbContext لحفظ التغييرات
 
             return Unit.Value; // إرجاع وحدة القيمة لتشير إلى النجاح

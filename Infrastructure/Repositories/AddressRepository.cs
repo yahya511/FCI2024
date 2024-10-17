@@ -4,7 +4,7 @@ namespace Infrastructure.Repositories
 {
     public class AddressRepository : GenericRepository<Address>, IAddressRepository
     {
-        public AddressRepository(ProjectsDbContext dbContext) : base(dbContext)
+        public AddressRepository(EmployeesDbContext dbContext) : base(dbContext)
         {
         }
 

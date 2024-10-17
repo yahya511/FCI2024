@@ -11,11 +11,11 @@ namespace Application.Features.Projects.Commands.DeleteProject
 
         public async Task<Unit> Handle(DeleteProjectRequest request, CancellationToken cancellationToken)
         {
-            var project = await _unitOfWork.Projects.GetByIdAsync(request.ProjectID);
-            if (project == null)
-            {
-                throw new KeyNotFoundException($"Project with ID {request.ProjectID} not found.");
-            }
+       //     var project = await _unitOfWork.Projects.GetByIdAsync(request.ProjectID);
+            //if (project == null)
+            //{
+            //    throw new KeyNotFoundException($"Project with ID {request.ProjectID} not found.");
+            //}
 
             // تحقق مما إذا كانت المدينة مرتبطة بعناوين
             var employeesProjects = await _unitOfWork.employeeProject.GetAllAsync(em => em.ProjectID == request.ProjectID);
@@ -25,7 +25,7 @@ namespace Application.Features.Projects.Commands.DeleteProject
             }
 
             // حذف المشروع
-            await _unitOfWork.Projects.DeleteAsync(project.ProjectID);
+         //   await _unitOfWork.Projects.DeleteAsync(project.ProjectID);
 
             // حفظ جميع التغييرات باستخدام UnitOfWork
             await _unitOfWork.CommitAsync();

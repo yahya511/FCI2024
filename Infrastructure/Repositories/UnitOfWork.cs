@@ -4,23 +4,20 @@ namespace Infrastructure.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly ApplicationDbContext _dbContext;
+        private readonly EmployeesDbContext _dbContext;
 
         public IAddressRepository Addresses { get; private set; }
         public ITownRepository Towns { get; private set; }
-        public IProjectRepository Projects { get; private set; }
         public IEmployeeProjectRepository employeeProject { get; private set; }
 
-        public UnitOfWork(ApplicationDbContext dbContext, 
+        public UnitOfWork(EmployeesDbContext dbContext, 
                           IAddressRepository addressRepository,
                           ITownRepository townRepository,
-                          IProjectRepository projectRepository,
                           IEmployeeProjectRepository employeeProjectRepository)
         {
             _dbContext = dbContext;
             Addresses = addressRepository;
             Towns = townRepository;
-            Projects = projectRepository;
             employeeProject=employeeProjectRepository;
         }
 

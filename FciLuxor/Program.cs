@@ -1,3 +1,8 @@
+using System.Reflection;
+using Application;
+using Infrastructure;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,29 +10,29 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
-// Add DbContext for EmployeesDB
+// Add DbContext for EmployeesDbContext
 builder.Services.AddDbContext<EmployeesDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("EmployeesDatabase"), 
-        b => b.MigrationsAssembly("Infrastructure"))); 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("EmployeesDatabase")));
 
-// Add DbContext for ProjectsDB
-builder.Services.AddDbContext<ProjectsDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ProjectsDatabase"), 
-        b => b.MigrationsAssembly("Infrastructure"))); 
-
-// Add Repositories
-// إضافة خدمات MediatR
-builder.Services.AddScoped<ITownRepository, TownRepository>(); // تسجيل الـ Repositories
+// Add Repositories and UnitOfWork
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ITownRepository, TownRepository>();
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<IEmployeeProjectRepository, EmployeeProjectRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddMediatR(typeof(GetAllTownsHandler).Assembly); // This should be the assembly where the handler is defined
 
-
-// Add Mediator
-//builder.Services.AddMediatR(typeof(Program).Assembly); // استخدام الطريقة الصحيحة
-//builder.Services.AddMediatR(typeof(GetAllTownsHandler).Assembly);
-builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+// Register MediatR with all handlers in the assembly
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddMediatR(typeof(Program).Assembly); // Ensure this references the correct assembly
+var mediator = builder.Services.BuildServiceProvider().GetService<IMediator>();
+if (mediator == null)
+{
+    Console.WriteLine("Mediator is not registered.");
+}
 
 // Configure the HTTP request pipeline.
-var app = builder.Build(); // تأكد من أنك قد أضفت هذا السطر قبل استخدام 'app'
+var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
@@ -36,9 +41,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.MapControllers(); // إذا كنت تستخدم API controllers
+app.MapControllers(); // Map API controllers
 
-// إعادة توجيه الصفحة الرئيسية إلى Swagger
+// Redirect root to Swagger
 app.MapGet("/", () => Results.Redirect("/swagger/index.html"));
 
 app.Run();

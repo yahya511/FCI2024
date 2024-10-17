@@ -2,9 +2,9 @@
 
 namespace Infrastructure.Repositories
 {
-    public class EmployeeProjectRepository : GenericRepository<Project>, IProjectRepository
+    public class EmployeeProjectRepository : GenericRepository<Project>, IEmployeeProjectRepository
     {
-        public EmployeeProjectRepository(ProjectsDbContext dbContext) : base(dbContext)
+        public EmployeeProjectRepository(EmployeesDbContext dbContext) : base(dbContext)
         {
         }
 
