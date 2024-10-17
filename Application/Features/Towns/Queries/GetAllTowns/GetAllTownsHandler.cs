@@ -1,4 +1,8 @@
-
+using MediatR;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using Domain.Models;
 
 namespace Application.Features.Towns.Queries.GetAllTowns
 {
@@ -19,8 +23,7 @@ namespace Application.Features.Towns.Queries.GetAllTowns
             }
             catch (Exception ex)
             {
-                // يمكنك استخدام ILogger لتسجيل الخطأ
-                // Log.Error(ex, "An error occurred while retrieving towns.");
+                // Log the exception here
                 throw new Exception("Handle error occurred while retrieving towns.", ex);
             }
         }

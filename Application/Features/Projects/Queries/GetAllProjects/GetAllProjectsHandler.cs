@@ -12,7 +12,7 @@ namespace Application.Features.Projects.Queries.GetAllProjects
 
         public async Task<IEnumerable<Project>> Handle(GetAllProjectsRequest request, CancellationToken cancellationToken)
         {
-            return await _unitOfWork.Projects.GetAllAsync();
+            return await _unitOfWork.employeeProject.GetAllAsync();
         }
     }
 }

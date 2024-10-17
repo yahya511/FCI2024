@@ -13,7 +13,7 @@ namespace Application.Features.Projects.Queries.GetProjectById
 
         public async Task<Project> Handle(GetProjectByIdRequest request, CancellationToken cancellationToken)
         {
-            return await _unitOfWork.Projects.GetByIdAsync(request.ProjectID);
+           return await _unitOfWork.employeeProject.GetByIdAsync(request.ProjectID);
         }
     }
 
