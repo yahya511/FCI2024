@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\Projects\\API\\FCI2024\\Domain\\Domain.csproj": {}
+    "D:\\Projects\\API\\FCI2024\\Domain\\Domain.csproj": {}
   },
   "projects": {
-    "d:\\Projects\\API\\FCI2024\\Domain\\Domain.csproj": {
+    "D:\\Projects\\API\\FCI2024\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Projects\\API\\FCI2024\\Domain\\Domain.csproj",
+        "projectUniqueName": "D:\\Projects\\API\\FCI2024\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "d:\\Projects\\API\\FCI2024\\Domain\\Domain.csproj",
+        "projectPath": "D:\\Projects\\API\\FCI2024\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\yahya\\.nuget\\packages\\",
-        "outputPath": "d:\\Projects\\API\\FCI2024\\Domain\\obj\\",
+        "outputPath": "D:\\Projects\\API\\FCI2024\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\yahya\\AppData\\Roaming\\NuGet\\NuGet.Config"

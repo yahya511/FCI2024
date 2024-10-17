@@ -4637,11 +4637,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\Projects\\API\\FCI2024\\FciLuxor\\FciLuxor.csproj",
+      "projectUniqueName": "D:\\Projects\\API\\FCI2024\\FciLuxor\\FciLuxor.csproj",
       "projectName": "FciLuxor",
-      "projectPath": "d:\\Projects\\API\\FCI2024\\FciLuxor\\FciLuxor.csproj",
+      "projectPath": "D:\\Projects\\API\\FCI2024\\FciLuxor\\FciLuxor.csproj",
       "packagesPath": "C:\\Users\\yahya\\.nuget\\packages\\",
-      "outputPath": "d:\\Projects\\API\\FCI2024\\FciLuxor\\obj\\",
+      "outputPath": "D:\\Projects\\API\\FCI2024\\FciLuxor\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\yahya\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -4658,8 +4658,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "d:\\Projects\\API\\FCI2024\\Application\\Application.csproj": {
-              "projectPath": "d:\\Projects\\API\\FCI2024\\Application\\Application.csproj"
+            "D:\\Projects\\API\\FCI2024\\Application\\Application.csproj": {
+              "projectPath": "D:\\Projects\\API\\FCI2024\\Application\\Application.csproj"
             }
           }
         }
