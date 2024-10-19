@@ -27,6 +27,7 @@ D:\Projects\FCI2024\FCIProjects\Application\obj\Debug\net8.0\Application.Generat
 D:\Projects\FCI2024\FCIProjects\Application\obj\Debug\net8.0\Application.AssemblyInfoInputs.cache
 D:\Projects\FCI2024\FCIProjects\Application\obj\Debug\net8.0\Application.AssemblyInfo.cs
 D:\Projects\FCI2024\FCIProjects\Application\obj\Debug\net8.0\Application.csproj.CoreCompileInputs.cache
+D:\Projects\FCI2024\FCIProjects\Application\obj\Debug\net8.0\Application.sourcelink.json
 D:\Projects\FCI2024\FCIProjects\Application\obj\Debug\net8.0\Applicat.44B5EDA2.Up2Date
 D:\Projects\FCI2024\FCIProjects\Application\obj\Debug\net8.0\Application.dll
 D:\Projects\FCI2024\FCIProjects\Application\obj\Debug\net8.0\refint\Application.dll

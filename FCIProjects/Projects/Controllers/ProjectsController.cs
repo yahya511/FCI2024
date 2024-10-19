@@ -1,5 +1,6 @@
 
 
+
 namespace FciLuxor.Controllers
 {
     [ApiController]
@@ -7,28 +8,13 @@ namespace FciLuxor.Controllers
     public class ProjectsController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly ProjectsDbContext _projectsDbContext; // إضافة DbContext
 
-        public ProjectsController(IMediator mediator, ProjectsDbContext projectsDbContext)
+        public ProjectsController(IMediator mediator)
         {
             _mediator = mediator; // استخدام Mediator
-            _projectsDbContext = projectsDbContext; // تمرير DbContext
         }
 
-        // نقطة النهاية لاختبار الوصول إلى DbContext
-        [HttpGet("test-db")]
-        public IActionResult TestDatabaseConnection()
-        {
-            try
-            {
-                var projects = _projectsDbContext.Set<Project>().ToList(); // استرجاع جميع 
-                return Ok(projects); // إرجاع قائمة 
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}"); // إرجاع خطأ 500 في حالة حدوث استثناء
-            }
-        }
+       
 
         // Create Project
         [HttpPost]
@@ -46,21 +32,21 @@ namespace FciLuxor.Controllers
             return Ok(result);
         }
 
+        [HttpPost("CreateProjectAndDepartment")]
+        public async Task<IActionResult> CreateProjectAndDepartment([FromBody] CreateProjectAndDepartmentRequest request)
+        {
+            await _mediator.Send(request);
+            return Ok();
+        }
+
         // Get All Projects
         [HttpGet]
         public async Task<IActionResult> GetAllProjects()
         {
-            try
-            {
-                var result = await _mediator.Send(new GetAllProjectsRequest());
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                // يمكنك استخدام ILogger لتسجيل الخطأ
-                // Log.Error(ex, "An error occurred while fetching all projects.");
-                return StatusCode(500, $"Controller Internal server error: {ex.Message}");
-            }
+           
+            var result = await _mediator.Send(new GetAllProjectsRequest());
+            return Ok(result);
+            
         }
 
         // Update Project

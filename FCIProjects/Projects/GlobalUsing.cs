@@ -9,6 +9,7 @@ global using Application.Features.Departments.Commands.DeleteDepartment;
 global using Application.Features.Departments.Commands.UpdateDepartment;
 global using Application.Features.Departments.Queries.GetAllDepartments;
 global using Application.Features.Departments.Queries.GetDepartmentById;
+global using Application.Features.Projects.Commands.CreateProjectAndDepartment;
 global using Domain.Models;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;

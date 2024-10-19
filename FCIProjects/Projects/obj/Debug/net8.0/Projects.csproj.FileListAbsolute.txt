@@ -136,6 +136,7 @@ D:\Projects\FCI2024\FCIProjects\Projects\obj\Debug\net8.0\Projects.AssemblyInfo.
 D:\Projects\FCI2024\FCIProjects\Projects\obj\Debug\net8.0\Projects.csproj.CoreCompileInputs.cache
 D:\Projects\FCI2024\FCIProjects\Projects\obj\Debug\net8.0\Projects.MvcApplicationPartsAssemblyInfo.cs
 D:\Projects\FCI2024\FCIProjects\Projects\obj\Debug\net8.0\Projects.MvcApplicationPartsAssemblyInfo.cache
+D:\Projects\FCI2024\FCIProjects\Projects\obj\Debug\net8.0\Projects.sourcelink.json
 D:\Projects\FCI2024\FCIProjects\Projects\obj\Debug\net8.0\staticwebassets.build.json
 D:\Projects\FCI2024\FCIProjects\Projects\obj\Debug\net8.0\staticwebassets.development.json
 D:\Projects\FCI2024\FCIProjects\Projects\obj\Debug\net8.0\staticwebassets\msbuild.Projects.Microsoft.AspNetCore.StaticWebAssets.props

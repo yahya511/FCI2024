@@ -16,6 +16,7 @@ D:\Projects\FCI2024\FCIProjects\Domain\obj\Debug\net8.0\Domain.GeneratedMSBuildE
 D:\Projects\FCI2024\FCIProjects\Domain\obj\Debug\net8.0\Domain.AssemblyInfoInputs.cache
 D:\Projects\FCI2024\FCIProjects\Domain\obj\Debug\net8.0\Domain.AssemblyInfo.cs
 D:\Projects\FCI2024\FCIProjects\Domain\obj\Debug\net8.0\Domain.csproj.CoreCompileInputs.cache
+D:\Projects\FCI2024\FCIProjects\Domain\obj\Debug\net8.0\Domain.sourcelink.json
 D:\Projects\FCI2024\FCIProjects\Domain\obj\Debug\net8.0\Domain.dll
 D:\Projects\FCI2024\FCIProjects\Domain\obj\Debug\net8.0\refint\Domain.dll
 D:\Projects\FCI2024\FCIProjects\Domain\obj\Debug\net8.0\Domain.pdb
