@@ -35,7 +35,7 @@ namespace Infrastructure.DbContexts
                 {
                     entity.CreatedBy = Guid.NewGuid(); // أو تعيين المستخدم الحالي
                     entity.CreatedOn = DateTime.UtcNow;
-                    entity.RowVersion = BitConverter.GetBytes(DateTime.UtcNow.Ticks);
+                    //entity.RowVersion = BitConverter.GetBytes(DateTime.UtcNow.Ticks);
                 }
                 else if (entry.State == EntityState.Modified)
                 {
